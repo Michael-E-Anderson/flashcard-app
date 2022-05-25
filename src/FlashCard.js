@@ -5,23 +5,25 @@ import { readCard } from "./utils/api"
 // Function to render the layout for each card in the Study component
 function FlashCard( {deck, cardNumber, flipped, flip, next}) {
     const [card, setCard] = useState([]);
-    const abortController = new AbortController();  
+      
 
     useEffect(() => {
+        const abortController = new AbortController();
+        async function loadCard() {
+          try {
+            const response = await readCard(cardNumber, abortController.signal);
+            setCard(response);
+          } catch (error) {
+            throw error;
+          }
+        }
         if (cardNumber !== null) {
             loadCard()
         }
         return () => abortController.abort()
     }, [cardNumber]);
     
-    async function loadCard() {        
-        try{
-            const response = await readCard(cardNumber, abortController.signal)
-            setCard(response)
-        } catch (error) {
-            throw error
-        }            
-    }
+    
     
     if (!flipped) {
         return (

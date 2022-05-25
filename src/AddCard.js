@@ -9,7 +9,7 @@ function AddCard() {
   const mountedRef = useRef(false);
   const {deckId} = useParams();
   const [deck, setDeck] = useState([]);
-  const abortController = new AbortController();
+  
   
   useEffect(() => {
     mountedRef.current = true;
@@ -19,6 +19,7 @@ function AddCard() {
   }, []);
 
   useEffect(() => {
+    const abortController = new AbortController();
     async function loadDeck() {
       try {
         const response = await readDeck(deckId, abortController.signal)

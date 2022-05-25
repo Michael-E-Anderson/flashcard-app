@@ -3,7 +3,6 @@ import DeckViewCardListCardView from "./DeckViewCardListCardView";
 
 // Function that lists all cards in the deck for the DeckView component
 function DeckViewCardList( {deck, cards} ) {
-    console.log(cards, "cards")
     if (!cards) {
         cards = []
     }
